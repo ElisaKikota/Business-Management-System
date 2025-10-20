@@ -4,29 +4,21 @@ import {
   Plus, 
   Trash2, 
   User, 
-  Shield, 
   CheckCircle,
   AlertTriangle,
-  Settings as SettingsIcon
 } from 'lucide-react'
 import { useAuth } from '../../contexts/AuthContext'
 import { useBusiness } from '../../contexts/BusinessContext'
-import { useUserManagement, ApprovalRole, ApprovalUser, BusinessUser } from '../../contexts/UserManagementContext'
+import { useUserManagement, ApprovalRole, ApprovalUser } from '../../contexts/UserManagementContext'
 
 const OrderApprovalSettings = () => {
-  const { currentUser } = useAuth()
-  const { currentBusiness } = useBusiness()
   const { 
     approvalRoles, 
     approvalUsers, 
     businessUsers,
     rolesLoading, 
     usersLoading, 
-    businessUsersLoading,
     error: contextError,
-    fetchApprovalRoles,
-    fetchApprovalUsers,
-    fetchBusinessUsers,
     createApprovalRole,
     updateApprovalRole,
     deleteApprovalRole,
@@ -42,8 +34,8 @@ const OrderApprovalSettings = () => {
   // Form states
   const [showRoleForm, setShowRoleForm] = useState(false)
   const [showUserForm, setShowUserForm] = useState(false)
-  const [editingRole, setEditingRole] = useState<ApprovalRole | null>(null)
-  const [editingUser, setEditingUser] = useState<ApprovalUser | null>(null)
+  const [editingRole] = useState<ApprovalRole | null>(null)
+  const [editingUser] = useState<ApprovalUser | null>(null)
 
   // New role form
   const [newRole, setNewRole] = useState({
@@ -82,7 +74,7 @@ const OrderApprovalSettings = () => {
     setSaving(true)
     setError('')
     try {
-      await createApprovalRole(newRole)
+      await createApprovalRole({...newRole, isActive: true})
       setNewRole({
         name: '',
         description: '',
@@ -467,7 +459,7 @@ const OrderApprovalSettings = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <button
-                      onClick={() => toggleRoleActive(role.id)}
+                      onClick={() => toggleRoleActive(role.id!)}
                       className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                         role.isActive 
                           ? 'bg-green-100 text-green-800' 
@@ -486,7 +478,7 @@ const OrderApprovalSettings = () => {
                         Edit
                       </button>
                       <button
-                        onClick={() => handleDeleteRole(role.id)}
+                        onClick={() => handleDeleteRole(role.id!)}
                         className="text-red-600 hover:text-red-900"
                       >
                         <Trash2 className="h-4 w-4" />
@@ -654,7 +646,7 @@ const OrderApprovalSettings = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <button
-                      onClick={() => toggleUserActive(user.id)}
+                      onClick={() => toggleUserActive(user.id!)}
                       className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                         user.isActive 
                           ? 'bg-green-100 text-green-800' 
@@ -666,7 +658,7 @@ const OrderApprovalSettings = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <button
-                      onClick={() => handleDeleteUser(user.id)}
+                      onClick={() => handleDeleteUser(user.id!)}
                       className="text-red-600 hover:text-red-900"
                     >
                       <Trash2 className="h-4 w-4" />

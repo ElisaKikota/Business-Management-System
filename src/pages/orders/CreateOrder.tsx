@@ -232,6 +232,7 @@ const CreateOrder = () => {
         productId: product.id,
         productName: product.name,
         sku: product.sku,
+        description: product.description,
         unitPrice: product.unitPrice,
         quantity: 1,
         totalPrice: product.unitPrice,
@@ -336,7 +337,7 @@ const CreateOrder = () => {
         notes,
         assignedPacker,
         deliveryMethod,
-        deliveryAddress: deliveryMethod !== 'customer_pickup' ? deliveryAddress : null,
+        deliveryAddress: deliveryMethod !== 'customer_pickup' ? deliveryAddress : undefined,
         createdBy: '', // Will be set by createOrder
         createdAt: '', // Will be set by createOrder
         updatedAt: '' // Will be set by createOrder
@@ -918,7 +919,7 @@ const CreateOrder = () => {
           </button>
           <button
             type="submit"
-            disabled={loading || !selectedCustomer || orderItems.length === 0 || (paymentType === 'credit' && creditEligibility && !creditEligibility.isEligible)}
+            disabled={loading || !selectedCustomer || orderItems.length === 0 || (paymentType === 'credit' && creditEligibility && !creditEligibility.isEligible) || false}
             className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
           >
             {loading ? (

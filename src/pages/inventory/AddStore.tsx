@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { ArrowLeft, Save, Store, AlertTriangle } from 'lucide-react'
+import { ArrowLeft, Save, Store } from 'lucide-react'
 import { useInventory } from '../../contexts/InventoryContext'
-import { Store as StoreType } from '../../contexts/InventoryContext'
 
 interface StoreForm {
   name: string

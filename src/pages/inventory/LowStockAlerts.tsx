@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { 
   AlertTriangle, 
   Search, 
-  Filter, 
   Package,
   Store,
   TrendingDown
@@ -16,7 +15,6 @@ const LowStockAlerts = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [filterStore, setFilterStore] = useState<string>('all')
   const [sortBy, setSortBy] = useState<'product' | 'store' | 'stock'>('stock')
-  const formatCurrency = useCurrencyFormatter()
 
   const lowStockItems = useMemo(() => {
     return stockItems.filter(stock => {

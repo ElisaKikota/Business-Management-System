@@ -90,8 +90,8 @@ const EditOrder = () => {
     if (customer) {
       setFormData(prev => ({
         ...prev,
-        customerId: customer.id,
-        customerName: customer.name,
+        customerId: customer.id!,
+        customerName: customer.firstName + ' ' + customer.lastName,
         customerEmail: customer.email,
         customerPhone: customer.phone || ''
       }))
@@ -142,7 +142,7 @@ const EditOrder = () => {
       updateOrderItem(index, 'productId', product.id)
       updateOrderItem(index, 'productName', product.name)
       updateOrderItem(index, 'sku', product.sku)
-      updateOrderItem(index, 'unitPrice', product.price)
+      updateOrderItem(index, 'unitPrice', product.unitPrice)
       updateOrderItem(index, 'unit', product.unit)
     }
   }
@@ -293,7 +293,7 @@ const EditOrder = () => {
                 <option value="">Select Customer</option>
                 {customers.map(customer => (
                   <option key={customer.id} value={customer.id}>
-                    {customer.name} ({customer.email})
+                    {customer.firstName + ' ' + customer.lastName} ({customer.email})
                   </option>
                 ))}
               </select>

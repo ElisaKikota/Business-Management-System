@@ -180,7 +180,6 @@ const ROLE_PERMISSIONS: Record<string, RolePermissions> = {
 
 export const RoleProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { currentUser } = useAuth()
-  const { currentBusiness } = useBusiness()
   const { approvalStatus } = useUserApproval()
   const [userPermissions, setUserPermissions] = useState<RolePermissions | null>(null)
   const [loading, setLoading] = useState(true)

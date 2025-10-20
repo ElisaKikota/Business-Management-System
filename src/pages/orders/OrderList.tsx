@@ -1,10 +1,9 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { 
   ShoppingCart, 
   Plus, 
   Search, 
-  Filter, 
   Eye,
   Edit,
   Trash2,
@@ -20,7 +19,6 @@ import PermissionGuard from '../../components/PermissionGuard'
 
 const OrderList = () => {
   const { orders, ordersLoading, fetchOrders, deleteOrder } = useOrders()
-  const { hasPermission } = useRole()
   const formatCurrency = useCurrencyFormatter()
   const [searchTerm, setSearchTerm] = useState('')
   const [filterStatus, setFilterStatus] = useState<'all' | 'pending' | 'approved' | 'processing' | 'shipped' | 'delivered' | 'cancelled'>('all')

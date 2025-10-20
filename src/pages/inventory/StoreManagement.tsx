@@ -4,18 +4,15 @@ import {
   Store, 
   Plus, 
   Search, 
-  Filter, 
   Edit, 
   Trash2, 
   MapPin,
   Users,
-  CheckCircle,
-  X
 } from 'lucide-react'
 import { useInventory } from '../../contexts/InventoryContext'
 
 const StoreManagement = () => {
-  const { stores, storesLoading, deleteStore, fetchStores } = useInventory()
+  const { stores, storesLoading, deleteStore } = useInventory()
   const [searchTerm, setSearchTerm] = useState('')
   const [filterType, setFilterType] = useState<'all' | 'main' | 'sub'>('all')
   const [sortBy, setSortBy] = useState<'name' | 'type' | 'date'>('name')

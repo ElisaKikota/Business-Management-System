@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { User, Store, Save, CheckCircle, AlertCircle } from 'lucide-react'
 import { useRole } from '../../contexts/RoleContext'
 import { useBusiness } from '../../contexts/BusinessContext'
@@ -14,7 +14,7 @@ const MyRoleSettings = () => {
   const { currentUser } = useAuth()
   
   const [selectedStores, setSelectedStores] = useState<string[]>([])
-  const [loading, setLoading] = useState(false)
+  const [loading] = useState(false)
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null)
 
@@ -31,7 +31,7 @@ const MyRoleSettings = () => {
   // Load user's assigned stores
   useEffect(() => {
     if (currentBusinessUser?.assignedStores) {
-      setSelectedStores(currentBusinessUser.assignedStores)
+      setSelectedStores(currentBusinessUser.assignedStores as any)
     }
   }, [currentBusinessUser])
 
@@ -93,16 +93,16 @@ const MyRoleSettings = () => {
                   >
                     <input
                       type="checkbox"
-                      checked={selectedStores.includes(store.id)}
-                      onChange={() => handleStoreToggle(store.id)}
+                      checked={selectedStores.includes(store.id!)}
+                      onChange={() => handleStoreToggle(store.id!)}
                       className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                     />
                     <div className="flex-1">
                       <div className="text-sm font-medium text-gray-900">{store.name}</div>
-                      <div className="text-xs text-gray-500">{store.location}</div>
+                      <div className="text-xs text-gray-500">{store.address}</div>
                     </div>
                     <div className="text-xs text-gray-400">
-                      {selectedStores.includes(store.id) ? (
+                      {selectedStores.includes(store.id!) ? (
                         <span className="text-green-600 flex items-center">
                           <CheckCircle className="w-3 h-3 mr-1" />
                           Assigned

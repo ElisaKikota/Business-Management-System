@@ -49,6 +49,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     )
   }
 
+  
   // Check if user is approved
   if (!approvalStatus.isApproved) {
     if (approvalStatus.status === 'pending') {

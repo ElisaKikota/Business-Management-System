@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { 
   ArrowLeft, 
@@ -7,7 +7,6 @@ import {
   Store, 
   AlertTriangle,
   CheckCircle,
-  X
 } from 'lucide-react'
 import { useInventory } from '../../contexts/InventoryContext'
 import { useCurrencyFormatter } from '../../hooks/useCurrency'
@@ -15,7 +14,7 @@ import { useCurrencyFormatter } from '../../hooks/useCurrency'
 const ProductDetail = () => {
   const { productId } = useParams<{ productId: string }>()
   const navigate = useNavigate()
-  const { getProductById, stockItems, stores, fetchStock } = useInventory()
+  const { getProductById, stockItems, stores } = useInventory()
   const formatCurrency = useCurrencyFormatter()
   const [product, setProduct] = useState<any>(null)
   const [productStock, setProductStock] = useState<{[storeId: string]: any}>({})

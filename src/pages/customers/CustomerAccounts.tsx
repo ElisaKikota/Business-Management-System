@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Users, Search, CreditCard, ArrowDownCircle, ArrowUpCircle } from 'lucide-react'
+import { Users, Search, CreditCard } from 'lucide-react'
 import { useCustomer } from '../../contexts/CustomerContext'
 import { useCurrencyFormatter } from '../../hooks/useCurrency'
 

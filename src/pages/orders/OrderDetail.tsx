@@ -123,7 +123,7 @@ const OrderDetail = () => {
     if (!order || !order.id) return
     setApproving(true)
     try {
-      await approveOrder(order.id)
+      await approveOrder(order.id, currentUser.uid)
       // Optimistically update local state
       setOrder(prev => prev ? { ...prev, status: 'approved' as any } : prev)
     } catch (e) {

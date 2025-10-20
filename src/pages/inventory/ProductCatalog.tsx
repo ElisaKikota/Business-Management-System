@@ -4,13 +4,11 @@ import {
   Package, 
   Plus, 
   Search, 
-  Filter, 
   Edit, 
   Trash2, 
   Eye,
   AlertTriangle,
   CheckCircle,
-  X
 } from 'lucide-react'
 import { useInventory } from '../../contexts/InventoryContext'
 import { useCurrencyFormatter } from '../../hooks/useCurrency'

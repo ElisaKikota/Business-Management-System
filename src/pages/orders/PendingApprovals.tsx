@@ -1,25 +1,23 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { 
   ShoppingCart, 
   Search, 
-  Filter, 
   Eye,
   CheckCircle,
   Clock,
   XCircle,
   AlertTriangle,
   User,
-  Calendar
 } from 'lucide-react'
 import { useCurrencyFormatter } from '../../hooks/useCurrency'
-import { useOrders, Order } from '../../contexts/OrderContext'
+import { useOrders } from '../../contexts/OrderContext'
 
 const PendingApprovals = () => {
-  const { orders, ordersLoading, fetchOrders, approveOrder } = useOrders()
+  const { orders, ordersLoading, approveOrder } = useOrders()
   const formatCurrency = useCurrencyFormatter()
   const [searchTerm, setSearchTerm] = useState('')
-  const [filterStatus, setFilterStatus] = useState<'all' | 'pending' | 'approved' | 'processing' | 'shipped' | 'delivered' | 'cancelled'>('pending')
+  const [filterStatus] = useState<'all' | 'pending' | 'approved' | 'processing' | 'shipped' | 'delivered' | 'cancelled'>('pending')
   const [sortBy, setSortBy] = useState<'date' | 'amount' | 'customer' | 'status'>('date')
   const [loading, setLoading] = useState(false)
 

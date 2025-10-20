@@ -19,7 +19,7 @@ interface RolePermissions {
 
 const RolesManagement = () => {
   const { currentBusiness } = useBusiness()
-  const { businessUsers, fetchBusinessUsers, initializeDefaultRolePermissions } = useUserManagement()
+  const { businessUsers, fetchBusinessUsers } = useUserManagement()
   const { userPermissions, availablePermissions } = useRole()
   const [resettingRoles, setResettingRoles] = useState(false)
   const [selectedRole, setSelectedRole] = useState<string | null>(null)

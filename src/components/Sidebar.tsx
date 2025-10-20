@@ -41,18 +41,6 @@ const Sidebar = ({ isCollapsed, onToggle }: SidebarProps) => {
   }, [isCollapsed])
 
   // Handle smooth animations
-  const handleToggle = () => {
-    if (!isCollapsed && expandedItem) {
-      // If sidebar is open and has expanded submenu, close submenu first
-      setExpandedItem(null)
-      setTimeout(() => {
-        onToggle()
-      }, 200) // Wait for submenu to close
-    } else {
-      // Direct toggle
-      onToggle()
-    }
-  }
 
   // Filter menu items based on user permissions
   const getFilteredMenuItems = () => {

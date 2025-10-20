@@ -4,7 +4,6 @@ import {
   ArrowRightLeft, 
   Plus, 
   Search, 
-  Filter, 
   CheckCircle,
   Clock,
   Truck,
@@ -23,7 +22,6 @@ const InventoryTransfers = () => {
     stores, 
     getStoreById, 
     getProductById, 
-    fetchTransfers,
     updateTransferStatus 
   } = useInventory()
   

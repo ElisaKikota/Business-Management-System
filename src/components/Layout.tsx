@@ -11,7 +11,7 @@ const Layout: React.FC = () => {
   })
 
   const toggleSidebar = () => {
-    setIsSidebarCollapsed(prev => !prev)
+    setIsSidebarCollapsed((prev: boolean) => !prev)
   }
 
   // Save to localStorage whenever the state changes

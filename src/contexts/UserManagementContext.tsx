@@ -7,7 +7,6 @@ import {
   deleteDoc, 
   getDocs, 
   query, 
-  where, 
   orderBy, 
   serverTimestamp,
   writeBatch
@@ -306,7 +305,7 @@ export const UserManagementProvider = ({ children }: UserManagementProviderProps
   }, [currentBusiness, approvalRoles.length, defaultRolesCreated, fetchApprovalRoles])
 
   // Auto-assign users with default roles to approval users
-  const autoAssignDefaultUsers = useCallback(async () => {
+  const _autoAssignDefaultUsers = useCallback(async () => {
     if (!currentBusiness || !approvalRoles.length || !businessUsers.length || autoAssignmentAttempted) return
 
     try {
@@ -397,7 +396,7 @@ export const UserManagementProvider = ({ children }: UserManagementProviderProps
 
       // Remove undefined values
       Object.keys(rolePayload).forEach(key => {
-        if (rolePayload[key] === undefined) delete rolePayload[key]
+        if ((rolePayload as any)[key] === undefined) delete (rolePayload as any)[key]
       })
 
       const rolesRef = collection(db, currentBusiness.id, 'main', 'approval_roles')
@@ -435,7 +434,7 @@ export const UserManagementProvider = ({ children }: UserManagementProviderProps
 
       // Remove undefined values
       Object.keys(updatePayload).forEach(key => {
-        if (updatePayload[key] === undefined) delete updatePayload[key]
+        if ((updatePayload as any)[key] === undefined) delete (updatePayload as any)[key]
       })
 
       await updateDoc(roleRef, updatePayload)
@@ -487,7 +486,7 @@ export const UserManagementProvider = ({ children }: UserManagementProviderProps
 
       // Remove undefined values
       Object.keys(userPayload).forEach(key => {
-        if (userPayload[key] === undefined) delete userPayload[key]
+        if ((userPayload as any)[key] === undefined) delete (userPayload as any)[key]
       })
 
       const usersRef = collection(db, currentBusiness.id, 'main', 'approval_users')
@@ -524,7 +523,7 @@ export const UserManagementProvider = ({ children }: UserManagementProviderProps
 
       // Remove undefined values
       Object.keys(updatePayload).forEach(key => {
-        if (updatePayload[key] === undefined) delete updatePayload[key]
+        if ((updatePayload as any)[key] === undefined) delete (updatePayload as any)[key]
       })
 
       await updateDoc(userRef, updatePayload)
@@ -582,7 +581,7 @@ export const UserManagementProvider = ({ children }: UserManagementProviderProps
     removeApprovalUser,
     fetchBusinessUsers,
     getBusinessUserById,
-    initializeDefaultRolePermissions: async () => {
+    _initializeDefaultRolePermissions: async () => {
       if (!currentBusiness) return
       
       try {
@@ -719,7 +718,7 @@ export const UserManagementProvider = ({ children }: UserManagementProviderProps
         }
         
         // Create documents for each role
-        for (const [roleKey, roleData] of Object.entries(defaultRolePermissions)) {
+        for (const [, roleData] of Object.entries(defaultRolePermissions)) {
           const docRef = doc(rolePermissionsRef)
           batch.set(docRef, roleData)
         }

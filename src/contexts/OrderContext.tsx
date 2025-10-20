@@ -458,7 +458,7 @@ export const OrderProvider = ({ children }: OrderProviderProps) => {
     await updateOrder(orderId, { paymentStatus })
   }
 
-  const markOrderAsPrepared = async (orderId: string, preparedBy: string) => {
+  const markOrderAsPrepared = async (orderId: string, _preparedBy: string) => {
     if (!currentUser) throw new Error('No user authenticated')
     
     // Find the order to validate
@@ -486,7 +486,6 @@ export const OrderProvider = ({ children }: OrderProviderProps) => {
     console.log(`OrderContext: Updating order ${orderId} from ${order.status} to ${status}`)
     
     // Allow backward navigation within packer workflow
-    const packerStatuses = ['accepted', 'packing', 'done_packing', 'handed_to_delivery', 'transported']
     
     // Allow any transition within packer workflow, but not backward from final states
     if (order.status === 'handed_to_delivery' && status !== 'transported') {

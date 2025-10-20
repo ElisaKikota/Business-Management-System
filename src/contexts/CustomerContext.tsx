@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react'
-import { collection, addDoc, updateDoc, deleteDoc, doc, getDocs, query, orderBy, where, serverTimestamp } from 'firebase/firestore'
+import { collection, addDoc, updateDoc, deleteDoc, doc, getDocs, query, orderBy, serverTimestamp } from 'firebase/firestore'
 import { db } from '../config/firebase'
 import { useBusiness } from './BusinessContext'
 
@@ -248,7 +248,7 @@ export const CustomerProvider = ({ children }: CustomerProviderProps) => {
 
     // Write transaction record
     const txRef = collection(db, currentBusiness.id, 'main', 'customers', customerId, 'transactions')
-    const txDoc = await addDoc(txRef, {
+    await addDoc(txRef, {
       type: tx.type,
       amount: tx.amount,
       reference: tx.reference || null,

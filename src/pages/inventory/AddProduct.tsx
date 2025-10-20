@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { ArrowLeft, Save, Package, DollarSign, AlertTriangle, X } from 'lucide-react'
 import { useInventory } from '../../contexts/InventoryContext'
-import { Product } from '../../contexts/InventoryContext'
 
 interface ProductForm {
   name: string
@@ -93,7 +92,7 @@ const AddProduct = () => {
           maxStockLevel: product.maxStockLevel,
           isActive: product.isActive,
           tags: product.tags?.join(', ') || '',
-          initialStock: 0,
+          initialStock: [],
           initialStoreId: ''
         })
         
@@ -254,7 +253,7 @@ const AddProduct = () => {
       } else {
         // Create initial stock entries for each store
         const initialStockEntries = form.initialStock.filter(entry => entry.quantity > 0)
-        await addProduct(productData, initialStockEntries.length > 0 ? initialStockEntries : undefined)
+        await addProduct(productData)
         navigate('/app/inventory/products', { 
           state: { message: 'Product added successfully!' }
         })

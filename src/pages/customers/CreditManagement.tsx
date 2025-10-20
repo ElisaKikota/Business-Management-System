@@ -1,17 +1,17 @@
 import { useMemo, useState } from 'react'
-import { Search, Plus, Minus, Save, ArrowDownCircle, ChevronDown, ChevronRight, User, CreditCard } from 'lucide-react'
+import { Search, Save, ArrowDownCircle, ChevronDown, ChevronRight, User, CreditCard } from 'lucide-react'
 import { useCustomer } from '../../contexts/CustomerContext'
 import { useCurrencyFormatter } from '../../hooks/useCurrency'
 
 const CreditManagement = () => {
   const { customers, updateCustomer, addCustomerTransaction, loading } = useCustomer()
   const [searchTerm, setSearchTerm] = useState('')
-  const [selectedCustomerId, setSelectedCustomerId] = useState<string>('')
+  const [selectedCustomerId] = useState<string>('')
   const [expandedCustomerId, setExpandedCustomerId] = useState<string>('')
   const [newLimit, setNewLimit] = useState<number | ''>('')
   const [paymentAmount, setPaymentAmount] = useState<number | ''>('')
   const [isUpdating, setIsUpdating] = useState(false)
-  const [showSuggestions, setShowSuggestions] = useState(false)
+  const [showSuggestions] = useState(false)
   const formatCurrency = useCurrencyFormatter()
 
   const filtered = useMemo(() => {
@@ -27,7 +27,6 @@ const CreditManagement = () => {
     })
   }, [customers, searchTerm])
 
-  const selected = customers.find(c => c.id === selectedCustomerId)
 
   const saveLimit = async (customerId: string) => {
     if (!newLimit) return

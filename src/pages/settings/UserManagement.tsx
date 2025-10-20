@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { User, Shield, Eye, EyeOff, Save, Edit3, Trash2, Plus } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { User, Shield, Save, Edit3, Trash2, Plus } from 'lucide-react'
 import { useRole } from '../../contexts/RoleContext'
 import { useBusiness } from '../../contexts/BusinessContext'
 import { useUserManagement, BusinessUser } from '../../contexts/UserManagementContext'
@@ -7,7 +7,7 @@ import { useUserManagement, BusinessUser } from '../../contexts/UserManagementCo
 const UserManagement = () => {
   const { userPermissions, availablePermissions, updateUserPermissions } = useRole()
   const { currentBusiness } = useBusiness()
-  const { businessUsers, loading: usersLoading, fetchBusinessUsers } = useUserManagement()
+  const { businessUsers, fetchBusinessUsers } = useUserManagement()
   const [selectedUser, setSelectedUser] = useState<BusinessUser | null>(null)
   const [showPermissionsModal, setShowPermissionsModal] = useState(false)
   const [selectedUserPermissions, setSelectedUserPermissions] = useState<string[]>([])

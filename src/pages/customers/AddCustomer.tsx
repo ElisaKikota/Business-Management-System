@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { ArrowLeft, Save, UserPlus, CreditCard, MapPin, Phone, Mail } from 'lucide-react'
+import { ArrowLeft, Save, UserPlus, CreditCard, MapPin, Mail } from 'lucide-react'
 import { useBusiness } from '../../contexts/BusinessContext'
 import { useCustomer } from '../../contexts/CustomerContext'
 

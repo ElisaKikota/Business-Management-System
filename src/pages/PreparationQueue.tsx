@@ -217,7 +217,7 @@ const PreparationQueue = () => {
                     </div>
                     <div className="flex items-center text-sm text-gray-600">
                       <Package className="w-4 h-4 mr-2" />
-                      <span>Packer: {getPackerName(order.assignedPacker)}</span>
+                      <span>Packer: {getPackerName(order.assignedPacker!)}</span>
                     </div>
                     <div className="flex items-center text-sm text-gray-600">
                       <Truck className="w-4 h-4 mr-2" />
@@ -293,7 +293,7 @@ const PreparationQueue = () => {
                     </div>
                     <div className="flex items-center text-sm text-gray-600">
                       <Package className="w-4 h-4 mr-2" />
-                      <span>{getPackerName(order.assignedPacker)}</span>
+                      <span>{getPackerName(order.assignedPacker!)}</span>
                     </div>
                     <div className="flex items-center text-sm text-gray-600">
                       <Truck className="w-4 h-4 mr-2" />
