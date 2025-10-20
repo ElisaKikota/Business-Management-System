@@ -53,7 +53,7 @@ const RolesManagement = () => {
       console.log('Resetting all users to default roles...')
       
       // Initialize default role permissions in database
-      await initializeDefaultRolePermissions()
+      // await initializeDefaultRolePermissions()
       
       // Refresh the business users list
       await fetchBusinessUsers()

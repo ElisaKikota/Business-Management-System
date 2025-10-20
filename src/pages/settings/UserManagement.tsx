@@ -7,7 +7,7 @@ import { useUserManagement, BusinessUser } from '../../contexts/UserManagementCo
 const UserManagement = () => {
   const { userPermissions, availablePermissions, updateUserPermissions } = useRole()
   const { currentBusiness } = useBusiness()
-  const { businessUsers, fetchBusinessUsers } = useUserManagement()
+  const { businessUsers, fetchBusinessUsers, usersLoading } = useUserManagement()
   const [selectedUser, setSelectedUser] = useState<BusinessUser | null>(null)
   const [showPermissionsModal, setShowPermissionsModal] = useState(false)
   const [selectedUserPermissions, setSelectedUserPermissions] = useState<string[]>([])

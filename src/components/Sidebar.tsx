@@ -20,10 +20,9 @@ import PermissionGuard from './PermissionGuard'
 
 interface SidebarProps {
   isCollapsed: boolean
-  onToggle: () => void
 }
 
-const Sidebar = ({ isCollapsed, onToggle }: SidebarProps) => {
+const Sidebar = ({ isCollapsed }: SidebarProps) => {
   const location = useLocation()
   const { userPermissions } = useRole()
   const [expandedItem, setExpandedItem] = useState<string | null>(null)

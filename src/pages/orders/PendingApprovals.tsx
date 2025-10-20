@@ -17,7 +17,6 @@ const PendingApprovals = () => {
   const { orders, ordersLoading, approveOrder } = useOrders()
   const formatCurrency = useCurrencyFormatter()
   const [searchTerm, setSearchTerm] = useState('')
-  const [filterStatus] = useState<'all' | 'pending' | 'approved' | 'processing' | 'shipped' | 'delivered' | 'cancelled'>('pending')
   const [sortBy, setSortBy] = useState<'date' | 'amount' | 'customer' | 'status'>('date')
   const [loading, setLoading] = useState(false)
 

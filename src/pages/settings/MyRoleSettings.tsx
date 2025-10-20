@@ -31,7 +31,7 @@ const MyRoleSettings = () => {
   // Load user's assigned stores
   useEffect(() => {
     if (currentBusinessUser?.assignedStores) {
-      setSelectedStores(currentBusinessUser.assignedStores as any)
+      setSelectedStores((currentBusinessUser as any).assignedStores)
     }
   }, [currentBusinessUser])
 

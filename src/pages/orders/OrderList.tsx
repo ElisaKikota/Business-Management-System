@@ -14,7 +14,6 @@ import {
 } from 'lucide-react'
 import { useCurrencyFormatter } from '../../hooks/useCurrency'
 import { useOrders, Order } from '../../contexts/OrderContext'
-import { useRole } from '../../contexts/RoleContext'
 import PermissionGuard from '../../components/PermissionGuard'
 
 const OrderList = () => {

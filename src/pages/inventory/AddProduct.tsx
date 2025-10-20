@@ -93,7 +93,6 @@ const AddProduct = () => {
           isActive: product.isActive,
           tags: product.tags?.join(', ') || '',
           initialStock: [],
-          initialStoreId: ''
         })
         
         // Load existing stock data for this product
@@ -252,7 +251,6 @@ const AddProduct = () => {
         })
       } else {
         // Create initial stock entries for each store
-        const initialStockEntries = form.initialStock.filter(entry => entry.quantity > 0)
         await addProduct(productData)
         navigate('/app/inventory/products', { 
           state: { message: 'Product added successfully!' }

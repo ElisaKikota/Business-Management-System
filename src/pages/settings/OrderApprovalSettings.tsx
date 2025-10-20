@@ -7,8 +7,6 @@ import {
   CheckCircle,
   AlertTriangle,
 } from 'lucide-react'
-import { useAuth } from '../../contexts/AuthContext'
-import { useBusiness } from '../../contexts/BusinessContext'
 import { useUserManagement, ApprovalRole, ApprovalUser } from '../../contexts/UserManagementContext'
 
 const OrderApprovalSettings = () => {
@@ -34,7 +32,7 @@ const OrderApprovalSettings = () => {
   // Form states
   const [showRoleForm, setShowRoleForm] = useState(false)
   const [showUserForm, setShowUserForm] = useState(false)
-  const [editingRole] = useState<ApprovalRole | null>(null)
+  const [editingRole, setEditingRole] = useState<ApprovalRole | null>(null)
   const [editingUser] = useState<ApprovalUser | null>(null)
 
   // New role form

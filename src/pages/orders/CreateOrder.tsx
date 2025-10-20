@@ -415,7 +415,7 @@ const CreateOrder = () => {
                     {filteredCustomers.map(customer => (
                       <div
                         key={customer.id}
-                        onClick={() => handleCustomerSelect(customer)}
+                        onClick={() => handleCustomerSelect(customer as any)}
                         className="px-4 py-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100"
                       >
                         <div className="font-medium text-gray-900">{customer.firstName} {customer.lastName}</div>
@@ -492,7 +492,7 @@ const CreateOrder = () => {
                       {filteredProducts.map(product => (
                         <div
                           key={product.id}
-                          onClick={() => handleProductAdd(product)}
+                          onClick={() => handleProductAdd(product as any)}
                           className="px-4 py-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100"
                         >
                           <div className="flex justify-between items-start">

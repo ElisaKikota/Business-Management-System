@@ -8,7 +8,6 @@ import {
   TrendingDown
 } from 'lucide-react'
 import { useInventory } from '../../contexts/InventoryContext'
-import { useCurrencyFormatter } from '../../hooks/useCurrency'
 
 const LowStockAlerts = () => {
   const { products, stockItems, stores, getStoreById, getProductById } = useInventory()

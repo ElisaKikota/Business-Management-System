@@ -305,7 +305,7 @@ export const UserManagementProvider = ({ children }: UserManagementProviderProps
   }, [currentBusiness, approvalRoles.length, defaultRolesCreated, fetchApprovalRoles])
 
   // Auto-assign users with default roles to approval users
-  const _autoAssignDefaultUsers = useCallback(async () => {
+  const autoAssignDefaultUsers = useCallback(async () => {
     if (!currentBusiness || !approvalRoles.length || !businessUsers.length || autoAssignmentAttempted) return
 
     try {
@@ -581,7 +581,7 @@ export const UserManagementProvider = ({ children }: UserManagementProviderProps
     removeApprovalUser,
     fetchBusinessUsers,
     getBusinessUserById,
-    _initializeDefaultRolePermissions: async () => {
+    initializeDefaultRolePermissions: async () => {
       if (!currentBusiness) return
       
       try {

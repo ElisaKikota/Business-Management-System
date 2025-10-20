@@ -6,12 +6,10 @@ import { useCurrencyFormatter } from '../../hooks/useCurrency'
 const CreditManagement = () => {
   const { customers, updateCustomer, addCustomerTransaction, loading } = useCustomer()
   const [searchTerm, setSearchTerm] = useState('')
-  const [selectedCustomerId] = useState<string>('')
   const [expandedCustomerId, setExpandedCustomerId] = useState<string>('')
   const [newLimit, setNewLimit] = useState<number | ''>('')
   const [paymentAmount, setPaymentAmount] = useState<number | ''>('')
   const [isUpdating, setIsUpdating] = useState(false)
-  const [showSuggestions] = useState(false)
   const formatCurrency = useCurrencyFormatter()
 
   const filtered = useMemo(() => {
