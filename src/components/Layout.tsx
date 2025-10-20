@@ -26,7 +26,7 @@ const Layout: React.FC = () => {
       
       {/* Content area with sidebar and main content */}
       <div className="flex flex-1 overflow-hidden">
-        <Sidebar isCollapsed={isSidebarCollapsed} onToggle={toggleSidebar} />
+        <Sidebar isCollapsed={isSidebarCollapsed} />
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 p-6">
           <Outlet />
         </main>

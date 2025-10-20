@@ -32,7 +32,7 @@ const OrderApprovalSettings = () => {
   // Form states
   const [showRoleForm, setShowRoleForm] = useState(false)
   const [showUserForm, setShowUserForm] = useState(false)
-  const [editingRole, setEditingRole] = useState<ApprovalRole | null>(null)
+  const [editingRole] = useState<ApprovalRole | null>(null)
   const [editingUser] = useState<ApprovalUser | null>(null)
 
   // New role form

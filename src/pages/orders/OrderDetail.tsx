@@ -15,12 +15,14 @@ import {
 import { useCurrencyFormatter } from '../../hooks/useCurrency'
 import { useOrders, Order } from '../../contexts/OrderContext'
 import { useRole } from '../../contexts/RoleContext'
+import { useAuth } from '../../contexts/AuthContext'
 
 const OrderDetail = () => {
   const { orderId } = useParams<{ orderId: string }>()
   const navigate = useNavigate()
   const { getOrderById, approveOrder } = useOrders()
   const { userPermissions } = useRole()
+  const { currentUser } = useAuth()
   const formatCurrency = useCurrencyFormatter()
   const [loading, setLoading] = useState(true)
   const [order, setOrder] = useState<Order | null>(null)
