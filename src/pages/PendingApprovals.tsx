@@ -1,11 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useBusiness } from '../contexts/BusinessContext'
-import { useAuth } from '../contexts/AuthContext'
 import { Users, CheckCircle, XCircle, Clock, User, Mail, Phone } from 'lucide-react'
 
 const PendingApprovals = () => {
   const { pendingMembers, approveMember, rejectMember, currentBusiness } = useBusiness()
-  const { currentUser } = useAuth()
   const [loading, setLoading] = useState(false)
   
   // No need to fetch user details separately as they're now stored in the member data

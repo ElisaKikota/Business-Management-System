@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { 
   ArrowLeft, 
   Save, 
-  ShoppingCart, 
   User, 
   CreditCard,
   Package,
@@ -72,8 +71,8 @@ interface OrderItem {
 const CreateOrder = () => {
   const navigate = useNavigate()
   const { createOrder } = useOrders()
-  const { customers, fetchCustomers } = useCustomer()
-  const { products, stores, stockItems, fetchProducts, fetchStores, fetchStock } = useInventory()
+  const { customers } = useCustomer()
+  const { products, stores, stockItems } = useInventory()
   const { businessUsers, fetchBusinessUsers } = useUserManagement()
   const formatCurrency = useCurrencyFormatter()
   const [loading, setLoading] = useState(false)

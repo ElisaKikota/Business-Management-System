@@ -16,7 +16,7 @@ import { useInventory } from '../../contexts/InventoryContext'
 import { useCurrencyFormatter } from '../../hooks/useCurrency'
 
 const ProductCatalog = () => {
-  const { products, productsLoading, deleteProduct, fetchProducts } = useInventory()
+  const { products, productsLoading, deleteProduct } = useInventory()
   const formatCurrency = useCurrencyFormatter()
   const [searchTerm, setSearchTerm] = useState('')
   const [filterCategory, setFilterCategory] = useState('all')

@@ -1,15 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { Users, Settings, Shield, CheckCircle, AlertCircle, RotateCcw, Save, Edit, Eye, EyeOff, Plus, Trash2 } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Shield, CheckCircle, AlertCircle, RotateCcw, Save, Edit } from 'lucide-react'
 import { useBusiness } from '../../contexts/BusinessContext'
 import { useUserManagement } from '../../contexts/UserManagementContext'
 import { useRole } from '../../contexts/RoleContext'
 
-interface RolePermission {
-  id: string
-  name: string
-  description: string
-  category: string
-}
 
 interface RolePermissions {
   role: string
@@ -27,7 +21,6 @@ const RolesManagement = () => {
   const { currentBusiness } = useBusiness()
   const { businessUsers, fetchBusinessUsers, initializeDefaultRolePermissions } = useUserManagement()
   const { userPermissions, availablePermissions } = useRole()
-  const [loading, setLoading] = useState(false)
   const [resettingRoles, setResettingRoles] = useState(false)
   const [selectedRole, setSelectedRole] = useState<string | null>(null)
   const [editingPermissions, setEditingPermissions] = useState<RolePermissions | null>(null)

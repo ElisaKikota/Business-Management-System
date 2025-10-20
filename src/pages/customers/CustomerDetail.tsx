@@ -11,8 +11,7 @@ import {
   Package,
   DollarSign,
   TrendingUp,
-  AlertTriangle,
-  CheckCircle
+  AlertTriangle
 } from 'lucide-react'
 import { doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore'
 import { db } from '../../config/firebase'
