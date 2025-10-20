@@ -8,7 +8,6 @@ import {
   Mail, 
   MapPin, 
   CreditCard, 
-  Calendar,
   Package,
   DollarSign,
   TrendingUp,
