@@ -12,19 +12,35 @@ import {
   X
 } from 'lucide-react'
 import { useCurrencyFormatter } from '../../hooks/useCurrency'
-import { useOrders, OrderItem } from '../../contexts/OrderContext'
+import { useOrders } from '../../contexts/OrderContext'
 import { useCustomer } from '../../contexts/CustomerContext'
 import { useInventory } from '../../contexts/InventoryContext'
 import { useUserManagement } from '../../contexts/UserManagementContext'
 
+interface OrderItem {
+  productId: string
+  productName: string
+  sku: string
+  description: string
+  unitPrice: number
+  quantity: number
+  totalPrice: number
+  unit: string
+  storeId: string
+  storeName: string
+}
+
 interface Customer {
   id: string
+  firstName: string
+  lastName: string
   name: string
   email: string
   phone: string
   creditLimit: number
   creditUsed: number
   isEligibleForCredit: boolean
+  isActive: boolean
 }
 
 interface Product {
@@ -33,6 +49,7 @@ interface Product {
   sku: string
   description: string
   unitPrice: number
+  price: number
   unit: string
   category: string
   availableStock: number
@@ -316,6 +333,7 @@ const CreateOrder = () => {
         paymentStatus: paymentType === 'cash' ? 'paid' as const : 'pending' as const,
         totalAmount: calculateTotal(),
         items: orderItems,
+        itemsCount: orderItems.length,
         notes,
         assignedPacker,
         deliveryMethod,

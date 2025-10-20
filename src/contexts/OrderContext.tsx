@@ -6,9 +6,7 @@ import {
   updateDoc, 
   deleteDoc, 
   getDocs, 
-  getDoc, 
   query, 
-  where, 
   orderBy, 
   serverTimestamp 
 } from 'firebase/firestore'
@@ -229,7 +227,7 @@ export const OrderProvider = ({ children }: OrderProviderProps) => {
 
       // Remove undefined values
       Object.keys(orderPayload).forEach(key => {
-        if (orderPayload[key] === undefined) delete orderPayload[key]
+        if ((orderPayload as any)[key] === undefined) delete (orderPayload as any)[key]
       })
 
       const ordersRef = collection(db, currentBusiness.id, 'main', 'orders')
@@ -238,7 +236,7 @@ export const OrderProvider = ({ children }: OrderProviderProps) => {
       const newOrder: Order = {
         id: docRef.id,
         ...orderData,
-        orderNumber,
+        orderNumber: orderData.orderNumber,
         itemsCount: orderData.items.length,
         createdBy: currentUser.uid,
         createdAt: new Date().toISOString(),
@@ -301,7 +299,7 @@ export const OrderProvider = ({ children }: OrderProviderProps) => {
             await addCustomerTransaction(orderData.customerId, {
               type: 'invoice',
               amount: orderData.totalAmount,
-              reference: `Order ${orderNumber}`,
+              reference: `Order ${orderData.orderNumber}`,
               note: `Credit order for ${orderData.totalAmount}`
             })
           } catch (creditError) {
@@ -334,7 +332,7 @@ export const OrderProvider = ({ children }: OrderProviderProps) => {
 
       // Remove undefined values
       Object.keys(updatePayload).forEach(key => {
-        if (updatePayload[key] === undefined) delete updatePayload[key]
+        if ((updatePayload as any)[key] === undefined) delete (updatePayload as any)[key]
       })
 
       console.log(`OrderContext: Updating Firestore with payload:`, updatePayload)
@@ -367,11 +365,13 @@ export const OrderProvider = ({ children }: OrderProviderProps) => {
       await deleteDoc(orderRef)
       
       // Restore stock when order is deleted
-      try {
-        await updateStockForOrder(order.items, 'restore')
-      } catch (stockError) {
-        console.error('Failed to restore stock:', stockError)
-        // Don't fail the order deletion if stock update fails
+      if (order) {
+        try {
+          await updateStockForOrder(order.items, 'restore')
+        } catch (stockError) {
+          console.error('Failed to restore stock:', stockError)
+          // Don't fail the order deletion if stock update fails
+        }
       }
 
       // If this was a credit order, refund the credit
@@ -432,7 +432,7 @@ export const OrderProvider = ({ children }: OrderProviderProps) => {
 
     await updateOrder(orderId, {
       status: 'approved',
-      approvedBy: currentUser.uid,
+      approvedBy: approvedBy,
       approvedAt: new Date().toISOString()
     })
   }
@@ -487,8 +487,6 @@ export const OrderProvider = ({ children }: OrderProviderProps) => {
     
     // Allow backward navigation within packer workflow
     const packerStatuses = ['accepted', 'packing', 'done_packing', 'handed_to_delivery', 'transported']
-    const currentIndex = packerStatuses.indexOf(order.status)
-    const targetIndex = packerStatuses.indexOf(status)
     
     // Allow any transition within packer workflow, but not backward from final states
     if (order.status === 'handed_to_delivery' && status !== 'transported') {

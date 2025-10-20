@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Package, Clock, CheckCircle, AlertCircle, User, Truck, MapPin } from 'lucide-react'
 import { useRole } from '../contexts/RoleContext'
 import { useBusiness } from '../contexts/BusinessContext'
@@ -9,7 +9,7 @@ import { useUserManagement } from '../contexts/UserManagementContext'
 const PreparationQueue = () => {
   const { userPermissions } = useRole()
   const { currentBusiness } = useBusiness()
-  const { orders, ordersLoading: loading, fetchOrders, markOrderAsPrepared, updatePackerStatus, updateTransporterDetails, updateCargoReceipt } = useOrders()
+  const { orders, ordersLoading: loading, fetchOrders, updatePackerStatus, updateTransporterDetails, updateCargoReceipt } = useOrders()
   const { getProductById } = useInventory()
   const { businessUsers, fetchBusinessUsers } = useUserManagement()
   const [selectedOrder, setSelectedOrder] = useState<any>(null)
@@ -71,11 +71,11 @@ const PreparationQueue = () => {
   const handleStartPreparation = async (order: any) => {
     try {
       console.log(`PreparationQueue: Starting preparation for order ${order.id} (current status: ${order.status})`)
-      await updatePackerStatus(order.id, 'accepted')
+      await updatePackerStatus(order.id!, 'accepted')
       console.log(`PreparationQueue: Successfully accepted order ${order.id}`)
       // Refresh orders to show updated status
       await fetchOrders()
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to accept order:', error)
       alert(`Failed to accept order: ${error.message || 'Unknown error'}`)
     }
@@ -87,7 +87,7 @@ const PreparationQueue = () => {
       await updatePackerStatus(orderId, status)
       console.log(`Successfully updated order ${orderId} to ${status}`)
       await fetchOrders()
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to update packer status:', error)
       alert(`Failed to update status: ${error.message || 'Unknown error'}`)
     }
@@ -100,7 +100,7 @@ const PreparationQueue = () => {
       setShowTransporterModal(false)
       setTransporterDetails({ name: '', phone: '', vehicleNumber: '', company: '' })
       await fetchOrders()
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to update transporter details:', error)
       alert(`Failed to update transporter details: ${error.message || 'Unknown error'}`)
     }
@@ -119,7 +119,7 @@ const PreparationQueue = () => {
       setShowCargoModal(false)
       setCargoReceipt({ receiptNumber: '', transporterName: '', transporterPhone: '', imageFile: null })
       await fetchOrders()
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to update cargo receipt:', error)
       alert(`Failed to update cargo receipt: ${error.message || 'Unknown error'}`)
     }
@@ -321,7 +321,7 @@ const PreparationQueue = () => {
                       icon: order.deliveryMethod === 'cargo_delivery' ? '🚛' : 
                             order.deliveryMethod === 'customer_pickup' ? '👤' : '🚚' 
                     }
-                  ].map((step, index) => {
+                  ].map((step) => {
                     const isActive = order.status === step.key
                     const statusFlow = ['approved', 'accepted', 'packing', 'done_packing', 'handed_to_delivery', 'transported']
                     const currentIndex = statusFlow.indexOf(order.status)
@@ -347,7 +347,7 @@ const PreparationQueue = () => {
                               }
                               // For customer pickup, go directly to handed_to_delivery without transporter details
                               else if (step.key === 'done_packing' && order.deliveryMethod === 'customer_pickup') {
-                                handlePackerStatusUpdate(order.id, 'handed_to_delivery')
+                                handlePackerStatusUpdate(order.id!, 'handed_to_delivery')
                               }
                               // Special handling for cargo delivery - show cargo receipt modal
                               else if (step.key === 'transported' && order.deliveryMethod === 'cargo_delivery') {
@@ -356,7 +356,7 @@ const PreparationQueue = () => {
                               }
                               // Regular status updates (including customer pickup)
                               else {
-                                handlePackerStatusUpdate(order.id, step.key as any)
+                                handlePackerStatusUpdate(order.id!, step.key as any)
                               }
                             } else {
                               console.log(`Cannot activate ${step.key} from current status ${order.status}`)

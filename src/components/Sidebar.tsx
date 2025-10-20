@@ -15,7 +15,6 @@ import {
   ChevronRight,
   ArrowRightLeft
 } from 'lucide-react'
-import { useBusiness } from '../contexts/BusinessContext'
 import { useRole } from '../contexts/RoleContext'
 import PermissionGuard from './PermissionGuard'
 
@@ -26,10 +25,8 @@ interface SidebarProps {
 
 const Sidebar = ({ isCollapsed, onToggle }: SidebarProps) => {
   const location = useLocation()
-  const { currentBusiness } = useBusiness()
   const { userPermissions } = useRole()
   const [expandedItem, setExpandedItem] = useState<string | null>(null)
-  const [isAnimating, setIsAnimating] = useState(false)
 
   const toggleExpanded = (item: string) => {
     setExpandedItem(prev => (prev === item ? null : item))
@@ -47,11 +44,9 @@ const Sidebar = ({ isCollapsed, onToggle }: SidebarProps) => {
   const handleToggle = () => {
     if (!isCollapsed && expandedItem) {
       // If sidebar is open and has expanded submenu, close submenu first
-      setIsAnimating(true)
       setExpandedItem(null)
       setTimeout(() => {
         onToggle()
-        setIsAnimating(false)
       }, 200) // Wait for submenu to close
     } else {
       // Direct toggle

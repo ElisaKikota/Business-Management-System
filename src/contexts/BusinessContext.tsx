@@ -42,7 +42,7 @@ interface BusinessContextType {
   pendingMembers: BusinessMember[]
   setCurrentBusiness: (business: Business | null) => void
   createBusiness: (businessData: Omit<Business, 'id' | 'createdAt' | 'businessAuthorizationCode' | 'systemAuthorizationCode'>, codes: { businessCode: string; systemCode: string }) => Promise<void>
-  joinBusiness: (authorizationCode: string, role: 'admin' | 'sales_rep' | 'inventory_manager' | 'packer' | 'accountant' | 'customer', systemAuthCode?: string) => Promise<void>
+  joinBusiness: (authorizationCode: string, role: 'admin' | 'sales_rep' | 'inventory_manager' | 'packer' | 'accountant' | 'customer' | 'business_owner', systemAuthCode?: string) => Promise<void>
   approveMember: (memberId: string) => Promise<void>
   rejectMember: (memberId: string) => Promise<void>
   loading: boolean
@@ -125,7 +125,7 @@ export const BusinessProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     localStorage.setItem('currentBusinessId', newBusiness.id)
   }
 
-  const joinBusiness = async (authorizationCode: string, role: 'admin' | 'sales_rep' | 'inventory_manager' | 'packer' | 'accountant' | 'customer', systemAuthCode?: string) => {
+  const joinBusiness = async (authorizationCode: string, role: 'admin' | 'sales_rep' | 'inventory_manager' | 'packer' | 'accountant' | 'customer' | 'business_owner', systemAuthCode?: string) => {
     if (!currentUser) throw new Error('User must be authenticated')
     
     // Find business by authorization code in the registry
