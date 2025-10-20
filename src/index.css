@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-gray-200;
+  }
+  body {
+    @apply bg-gray-50 text-gray-900;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .gradient-card {
+    @apply bg-gradient-to-br from-white to-blue-50 border border-blue-100;
+  }
+  
+  .sidebar-gradient {
+    @apply bg-gradient-to-b from-blue-900 to-blue-800;
+  }
+}
