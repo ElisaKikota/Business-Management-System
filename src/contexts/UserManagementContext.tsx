@@ -121,6 +121,9 @@ interface UserManagementContextType {
   // Business users
   fetchBusinessUsers: () => Promise<void>
   getBusinessUserById: (userId: string) => BusinessUser | undefined
+  
+  // Internal methods (prefixed with _)
+  _initializeDefaultRolePermissions: () => Promise<void>
 }
 
 const UserManagementContext = createContext<UserManagementContextType | undefined>(undefined)
@@ -149,7 +152,6 @@ export const UserManagementProvider = ({ children }: UserManagementProviderProps
   const [rolesFetched, setRolesFetched] = useState(false)
   const [usersFetched, setUsersFetched] = useState(false)
   const [businessUsersFetched, setBusinessUsersFetched] = useState(false)
-  const [autoAssignmentAttempted, setAutoAssignmentAttempted] = useState(false)
   const [defaultRolesCreated, setDefaultRolesCreated] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -245,7 +247,6 @@ export const UserManagementProvider = ({ children }: UserManagementProviderProps
 
   // Reset flags when business changes
   useEffect(() => {
-    setAutoAssignmentAttempted(false)
     setDefaultRolesCreated(false)
   }, [currentBusiness])
 
@@ -303,67 +304,6 @@ export const UserManagementProvider = ({ children }: UserManagementProviderProps
       setRolesLoading(false)
     }
   }, [currentBusiness, approvalRoles.length, defaultRolesCreated, fetchApprovalRoles])
-
-  // Auto-assign users with default roles to approval users
-  const _autoAssignDefaultUsers = useCallback(async () => {
-    if (!currentBusiness || !approvalRoles.length || !businessUsers.length || autoAssignmentAttempted) return
-
-    try {
-      setAutoAssignmentAttempted(true)
-      const existingApprovalUserIds = approvalUsers.map(au => au.userId)
-      const defaultRoleNames = DEFAULT_APPROVAL_ROLES.map(role => role.name)
-      
-      // Find business users with default roles who aren't already approval users
-      const usersToAssign = businessUsers.filter(bUser => 
-        defaultRoleNames.includes(bUser.role) && 
-        !existingApprovalUserIds.includes(bUser.userId) &&
-        bUser.status === 'active' &&
-        bUser.userId && // Ensure userId exists
-        (bUser.userName || bUser.userEmail) // Ensure we have a name or email
-      )
-
-      if (usersToAssign.length === 0) {
-        console.log('No users to auto-assign')
-        return
-      }
-
-      console.log(`Attempting to auto-assign ${usersToAssign.length} users`)
-      const batch = writeBatch(db)
-      const approvalUsersRef = collection(db, currentBusiness.id, 'main', 'approval_users')
-
-      for (const user of usersToAssign) {
-        // Find the corresponding approval role
-        const approvalRole = approvalRoles.find(role => role.name === user.role)
-        if (approvalRole && approvalRole.id) {
-          const newApprovalUserRef = doc(approvalUsersRef)
-          
-          // Create the approval user data with safe values
-          const approvalUserData = {
-            userId: user.userId,
-            userName: user.userName || user.userEmail || 'Unknown User',
-            userEmail: user.userEmail || '',
-            roleId: approvalRole.id,
-            roleName: approvalRole.name,
-            isActive: true,
-            assignedBy: currentUser?.uid || 'system',
-            assignedAt: serverTimestamp()
-          }
-          
-          batch.set(newApprovalUserRef, approvalUserData)
-        }
-      }
-
-      await batch.commit()
-      console.log(`Successfully auto-assigned ${usersToAssign.length} users to approval roles`)
-      // Re-fetch approval users to update state
-      await fetchApprovalUsers()
-    } catch (err: any) {
-      console.error('Error auto-assigning users:', err)
-      setError(err.message || 'Failed to auto-assign users')
-      // Reset the flag so it can be retried later
-      setAutoAssignmentAttempted(false)
-    }
-  }, [currentBusiness, approvalRoles, businessUsers, approvalUsers, currentUser, fetchApprovalUsers, autoAssignmentAttempted])
 
   // Auto-create default roles when roles are fetched and empty
   useEffect(() => {

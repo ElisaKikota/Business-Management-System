@@ -7,7 +7,7 @@ import {
   CheckCircle,
   AlertTriangle,
 } from 'lucide-react'
-import { useUserManagement, ApprovalRole, ApprovalUser } from '../../contexts/UserManagementContext'
+import { useUserManagement } from '../../contexts/UserManagementContext'
 
 const OrderApprovalSettings = () => {
   const { 
@@ -32,8 +32,6 @@ const OrderApprovalSettings = () => {
   // Form states
   const [showRoleForm, setShowRoleForm] = useState(false)
   const [showUserForm, setShowUserForm] = useState(false)
-  const [editingRole] = useState<ApprovalRole | null>(null)
-  const [editingUser] = useState<ApprovalUser | null>(null)
 
   // New role form
   const [newRole, setNewRole] = useState({
@@ -468,20 +466,12 @@ const OrderApprovalSettings = () => {
                     </button>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    <div className="flex space-x-2">
-                      <button
-                        onClick={() => setEditingRole(role)}
-                        className="text-blue-600 hover:text-blue-900"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDeleteRole(role.id!)}
-                        className="text-red-600 hover:text-red-900"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </button>
-                    </div>
+                    <button
+                      onClick={() => handleDeleteRole(role.id!)}
+                      className="text-red-600 hover:text-red-900"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
                   </td>
                 </tr>
               ))}
